@@ -48,12 +48,13 @@ The project follows a modular "Clean Architecture" approach:
    `cd backend`
 2. Create and activate a virtual environment:
    `python -m venv venv`
-3. Install dependencies:
+   `.\venv\Scripts\activate`
+4. Install dependencies:
    `pip install -r requirements.txt`
-4. Configure the `.env` file with your `DATABASE_URL` and `SECRET_KEY`.
-5. Run database migrations:
+5. Configure the `.env` file with your `DATABASE_URL` and `SECRET_KEY`.
+6. Run database migrations:
    `alembic upgrade head`
-6. Start the server:
+7. Start the server:
    `uvicorn app.main:app --reload`
 
 ### Frontend Setup
