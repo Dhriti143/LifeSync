@@ -11,10 +11,7 @@ router = APIRouter(prefix="/journals", tags=["Journals"])
 security = HTTPBearer()
 
 
-def _get_current_user(
-    authorization: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_session),
-):
+def _get_current_user(authorization: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_session)):
     """Shared auth dependency — validates the bearer token and returns the User."""
     user = validate_access_token(db, authorization.credentials)
     if not user:
@@ -23,11 +20,7 @@ def _get_current_user(
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create(
-    data: JournalCreateRequest,
-    authorization: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_session),
-):
+def create(data: JournalCreateRequest, authorization: HTTPAuthorizationCredentials = Depends(security),db: Session = Depends(get_session)):
     user = validate_access_token(db, authorization.credentials)
     if not user:
         return api_response(success=False, message="Not authenticated", errors=["Invalid or expired token"], code=status.HTTP_401_UNAUTHORIZED)
@@ -50,12 +43,7 @@ def create(
 
 
 @router.get("/")
-def list_journals(
-    skip: int = 0,
-    limit: int = 20,
-    authorization: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_session),
-):
+def list_journals(skip: int = 0, limit: int = 20, authorization: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_session),):
     user = validate_access_token(db, authorization.credentials)
     if not user:
         return api_response(success=False, message="Not authenticated", errors=["Invalid or expired token"], code=status.HTTP_401_UNAUTHORIZED)
@@ -81,11 +69,7 @@ def list_journals(
 
 
 @router.get("/{journal_id}")
-def read_journal(
-    journal_id: int,
-    authorization: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_session),
-):
+def read_journal(journal_id: int, authorization: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_session)):
     user = validate_access_token(db, authorization.credentials)
     if not user:
         return api_response(success=False, message="Not authenticated", errors=["Invalid or expired token"], code=status.HTTP_401_UNAUTHORIZED)
@@ -113,11 +97,7 @@ def read_journal(
 
 @router.patch("/{journal_id}")
 def update(
-    journal_id: int,
-    data: JournalUpdateRequest,
-    authorization: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_session),
-):
+    journal_id: int, data: JournalUpdateRequest, authorization: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_session)):
     user = validate_access_token(db, authorization.credentials)
     if not user:
         return api_response(success=False, message="Not authenticated", errors=["Invalid or expired token"], code=status.HTTP_401_UNAUTHORIZED)
@@ -144,11 +124,7 @@ def update(
 
 
 @router.delete("/{journal_id}")
-def delete(
-    journal_id: int,
-    authorization: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_session),
-):
+def delete(journal_id: int,authorization: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_session)):
     user = validate_access_token(db, authorization.credentials)
     if not user:
         return api_response(success=False, message="Not authenticated", errors=["Invalid or expired token"], code=status.HTTP_401_UNAUTHORIZED)

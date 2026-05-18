@@ -1,10 +1,5 @@
 import { apiClient } from "./client";
-import { 
-  Journal, 
-  JournalCreateRequest, 
-  JournalUpdateRequest, 
-  ApiResponse 
-} from "../types/journal";
+import type { Journal, JournalCreateRequest, JournalUpdateRequest, ApiResponse } from "../types/journal";
 
 export const getJournals = async (skip = 0, limit = 20): Promise<ApiResponse<Journal[]>> => {
   return apiClient.get("/journals/", { params: { skip, limit } });
