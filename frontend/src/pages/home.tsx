@@ -7,7 +7,7 @@ import { useAuth } from "../context/authContext";
 import { getJournals } from "../apis/journals";
 import { getTodayQuote } from "../apis/quotes";
 import type { Journal } from "../types/journal";
-import {BookOpen,TrendingUp,Clock,ArrowRight,Plus,Sparkles,Calendar} from "lucide-react";
+import {BookOpen,ArrowRight,Plus,Sparkles,Calendar} from "lucide-react";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -73,38 +73,6 @@ const Dashboard = () => {
     setViewJournal(null);
     setIsViewOpen(false);
   };
-
-  const stats = [
-    {
-      title: "Entries",
-      value: loading
-        ? "..."
-        : journals.length,
-      icon: BookOpen,
-      color:
-        "from-indigo-500 to-indigo-600",
-    },
-
-    {
-      title: "Streak",
-      value: "0 Days",
-      icon: TrendingUp,
-      color:
-        "from-emerald-500 to-emerald-600",
-    },
-
-    {
-      title: "Last Entry",
-      value: journals[0]
-        ? new Date(
-            journals[0].created_at
-          ).toLocaleDateString()
-        : "Never",
-      icon: Clock,
-      color:
-        "from-orange-500 to-orange-600",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
