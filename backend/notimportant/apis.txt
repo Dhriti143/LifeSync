@@ -1,10 +1,23 @@
 ENDPOINTS :-
-GET /	✅ {"message": "Backend is running"}
 
-POST /auth/register	✅ User created, email/username unique constraints work
-POST /auth/login	✅ JWT access + refresh tokens returned
-GET /auth/me	✅ Returns authenticated user's profile
-POST /auth/logout	✅ Session revoked
-GET /auth/me (post-logout)	✅ Correctly rejected with 401 Invalid token
+GET /  ✅ {"message": "Backend is running"}
 
-GET /quote/today ✅ Correctly fetches today's quote
+AUTH ROUTES
+------------------------
+POST /auth/register  ✅ User created, email/username unique constraints work
+POST /auth/login  ✅ JWT access + refresh tokens returned
+GET /auth/me  ✅ Returns authenticated user's profile
+POST /auth/logout  ✅ Session revoked
+GET /auth/me (post-logout)  ✅ Correctly rejected with 401 Invalid token
+
+QUOTE ROUTES
+------------------------
+GET /quote/today  ✅ Correctly fetches today's quote
+
+JOURNAL ROUTES
+------------------------
+POST /journals/  ✅ Create a new journal entry
+GET /journals/  ✅ Fetch all journal entries for authenticated user
+GET /journals/{journal_id}  ✅ Fetch single journal entry by ID
+PATCH /journals/{journal_id}  ✅ Update journal entry
+DELETE /journals/{journal_id}  ✅ Delete journal entry
