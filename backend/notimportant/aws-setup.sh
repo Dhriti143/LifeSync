@@ -90,8 +90,8 @@ cat > .env <<EOF
 # -----------------------------
 # Rumi Environment Variables
 # -----------------------------
-DATABASE_URL = "postgresql://postgres:dhriti@localhost:5432/rumi_db"
-SECRET_KEY = "Hello@123"
+DATABASE_URL = "postgresql://postgres:password@localhost:5432/db_name"
+SECRET_KEY = "Secret"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 REFRESH_TOKEN_EXPIRE_DAYS = 7
