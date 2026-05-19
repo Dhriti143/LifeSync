@@ -2,10 +2,10 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
     paths: ['backend/**','.github/workflows/backend-ci.yml']
   pull_request:
-    branches: [ "main" ]
+    branches: [ "*" ]
     paths: ['backend/**','.github/workflows/backend-ci.yml']
     
 env:
