@@ -21,6 +21,8 @@ services:
   backend:
     image: neonbluewhale/rumi-backend:latest
     restart: always
+    env_file: 
+      - /home/ubuntu/backend.env
     depends_on:
       db:
         condition: service_healthy
