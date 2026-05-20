@@ -21,7 +21,6 @@ services:
   backend:
     image: neonbluewhale/rumi-backend:latest
     restart: always
-    build: ./backend
     depends_on:
       db:
         condition: service_healthy
@@ -33,7 +32,6 @@ services:
   frontend:
     image: neonbluewhale/rumi-frontend:latest
     restart: always
-    build: ./frontend
     depends_on:
       - backend
     ports:
