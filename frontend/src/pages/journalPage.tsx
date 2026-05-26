@@ -56,26 +56,26 @@ const JournalPage = () => {
     "Productive",
   ];
 
-  useEffect(() => {
-    fetchJournals();
-  }, []);
-
   const fetchJournals = async () => {
     try {
       const response = await getJournals();
-
       if (response.success) {
         setJournals(response.data);
+      } else {
+        alert(response.message);
       }
-    } catch (error) {
-      console.error(
-        "Failed to fetch journals:",
-        error
-      );
+    } catch (error: any) {
+      if (error.response?.status !== 401) {
+        alert("Failed to load journals. Please try again later.");
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchJournals();
+  }, []);
 
   const handleOpenModal = (
     journal: Journal | null = null

@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from "react";
-import { Trash2, StickyNote, X, TrendingUp } from "lucide-react";
+import { Trash2, StickyNote, TrendingUp } from "lucide-react";
 import { createMoodLog, getMoodLogs, getMoodStats, deleteMoodLog } from "../apis/moods";
 import type { MoodLog } from "../types/mood";
 
@@ -63,8 +64,21 @@ const MoodTracker = () => {
 
   const todayKey = new Date().toISOString().slice(0, 10);
   const todayLogs = logs.filter((l) => l.logged_date === todayKey);
-  const recentLogs = logs.slice(0, 7);
   const totalLogged = Object.values(stats).reduce((a, b) => a + b, 0);
+
+  // Generate days for current month
+  const todayDate = new Date();
+  const year = todayDate.getFullYear();
+  const month = todayDate.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDay = new Date(year, month, 1).getDay(); // 0 (Sun) to 6 (Sat)
+  
+  const calendarDays = [];
+  for (let i = 0; i < firstDay; i++) calendarDays.push(null);
+  for (let i = 1; i <= daysInMonth; i++) calendarDays.push(new Date(year, month, i));
+
+  const logsMap = new Map();
+  logs.forEach(l => logsMap.set(l.logged_date, l));
 
   return (
     <div className="rounded-3xl border border-gray-100 bg-white shadow-sm overflow-hidden">
@@ -169,23 +183,38 @@ const MoodTracker = () => {
           </div>
         )}
 
-        {/* Recent 7-day strip */}
-        {!loading && recentLogs.length > 0 && (
+        {/* Monthly Calendar */}
+        {!loading && (
           <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gray-400">Recent</p>
-            <div className="flex gap-1.5 overflow-x-auto pb-1">
-              {recentLogs.map((log) => {
-                const meta = moodMeta[log.mood];
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-gray-400">This Month</p>
+            <div className="grid grid-cols-7 gap-1.5 text-center text-xs">
+              {['S','M','T','W','T','F','S'].map((d, i) => <div key={i} className="text-gray-400 font-semibold pb-1">{d}</div>)}
+              {calendarDays.map((d, i) => {
+                if (!d) return <div key={`empty-${i}`} className="p-2" />;
+                
+                // Adjust for timezone differences to ensure correct YYYY-MM-DD
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, "0");
+                const dd = String(d.getDate()).padStart(2, "0");
+                const dateStr = `${yyyy}-${mm}-${dd}`;
+                
+                const log = logsMap.get(dateStr);
+                const meta = log ? moodMeta[log.mood] : null;
+                const isToday = dateStr === todayKey;
+
                 return (
                   <div
-                    key={log.id}
-                    title={`${log.mood} — ${log.logged_date}`}
-                    className={`flex shrink-0 flex-col items-center gap-1 rounded-xl px-2.5 py-2 ${meta?.light ?? "bg-gray-50"}`}
+                    key={dateStr}
+                    title={log ? `${log.mood}${log.notes ? ` - ${log.notes}` : ''}` : ''}
+                    className={`aspect-square flex items-center justify-center rounded-lg transition-all ${
+                      meta ? meta.light : isToday ? 'border border-gray-200 bg-gray-50' : 'bg-transparent text-gray-400'
+                    } ${meta ? 'cursor-help hover:scale-110 shadow-sm' : ''}`}
                   >
-                    <span className="text-lg leading-none">{meta?.emoji ?? "😶"}</span>
-                    <span className="text-[10px] font-medium text-gray-400">
-                      {new Date(log.logged_date + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}
-                    </span>
+                    {meta ? (
+                      <span className="text-lg leading-none">{meta.emoji}</span>
+                    ) : (
+                      <span>{d.getDate()}</span>
+                    )}
                   </div>
                 );
               })}

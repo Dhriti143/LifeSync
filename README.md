@@ -68,9 +68,9 @@ The project follows a modular "Clean Architecture" approach:
 ## Development Roadmap
 
 - **Phase 1**: Authentication system and database infrastructure. (Completed)
-- **Phase 2**: Journaling and Quote API integration.
-- **Phase 3**: Mood tracking and Habit streak logic.
-- **Phase 4**: Goal management and progress visualization.
+- **Phase 2**: Journaling and Quote API integration. (Completed)
+- **Phase 3**: Mood tracking and Habit streak logic. (Completed)
+- **Phase 4**: Goal management and progress visualization via Habits Calendar. (Completed)
 - **Phase 5**: Advanced analytics dashboard.
 - **Phase 6**: AI-driven insights and PWA support.
 

@@ -3,6 +3,8 @@ import Login from "./pages/loginPage";
 import Register from "./pages/signUpPage";
 import Dashboard from "./pages/home";
 import JournalPage from "./pages/journalPage";
+import HabitsPage from "./pages/habitsPage";
+import MoodsPage from "./pages/moodsPage";
 import { ProtectedRoute } from "./routes/protectedRoutes";
 
 function App() {
@@ -25,6 +27,22 @@ function App() {
           element={
             <ProtectedRoute>
               <JournalPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/habits"
+          element={
+            <ProtectedRoute>
+              <HabitsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/moods"
+          element={
+            <ProtectedRoute>
+              <MoodsPage />
             </ProtectedRoute>
           }
         />
