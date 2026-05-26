@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, Zap } from "lucide-react";
-import { createHabit, updateHabit } from "../apis/habits";
-import type { Habit, HabitCreateRequest } from "../types/habit";
+import { createHabit, updateHabit } from "../../apis/habits";
+import type { Habit, HabitCreateRequest } from "../../types/habit";
 
 interface Props {
   isOpen: boolean;

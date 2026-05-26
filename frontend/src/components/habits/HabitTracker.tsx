@@ -1,11 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
-import { Plus, BarChart2, Edit2, Trash2, Check, Flame, Zap } from "lucide-react";
-import { getHabits, logHabit, undoHabit, deleteHabit } from "../apis/habits";
+import { Plus, BarChart2, Edit2, Trash2, Check, Zap } from "lucide-react";
+import { getHabits, logHabit, undoHabit, deleteHabit } from "../../apis/habits";
 import HabitFormModal from "./HabitFormModal";
 import HabitStatsModal from "./HabitStatsModal";
-import type { Habit } from "../types/habit";
+import type { Habit } from "../../types/habit";
 
-const HabitTracker = () => {
+type HabitTrackerProps = {
+  onHabitAdded?: () => void;
+};
+
+
+const HabitTracker = ({ onHabitAdded }: HabitTrackerProps) => {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
   const [toggling, setToggling] = useState<Set<number>>(new Set());
@@ -53,6 +58,7 @@ const HabitTracker = () => {
     try {
       await deleteHabit(id);
       await fetchHabits();
+      onHabitAdded?.();
     } catch (e) { console.error(e); }
   };
 
@@ -132,19 +138,17 @@ const HabitTracker = () => {
               return (
                 <div
                   key={habit.id}
-                  className={`group flex items-center gap-3 rounded-2xl px-4 py-3.5 transition-all ${
-                    done ? "bg-violet-50/60" : "hover:bg-gray-50"
-                  }`}
+                  className={`group flex items-center gap-3 rounded-2xl px-4 py-3.5 transition-all ${done ? "bg-violet-50/60" : "hover:bg-gray-50"
+                    }`}
                 >
                   {/* Toggle button */}
                   <button
                     onClick={() => handleToggle(habit)}
                     disabled={isToggling}
-                    className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
-                      done
+                    className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${done
                         ? "border-violet-500 bg-violet-500 text-white shadow-md shadow-violet-200"
                         : "border-gray-300 bg-white hover:border-violet-400"
-                    } ${isToggling ? "scale-90 opacity-60" : "hover:scale-110"}`}
+                      } ${isToggling ? "scale-90 opacity-60" : "hover:scale-110"}`}
                   >
                     {isToggling ? (
                       <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
@@ -204,7 +208,10 @@ const HabitTracker = () => {
       <HabitFormModal
         isOpen={formOpen}
         onClose={() => setFormOpen(false)}
-        onSuccess={fetchHabits}
+        onSuccess={async () => {
+          await fetchHabits();
+          onHabitAdded?.();
+        }}
         editingHabit={editingHabit}
       />
       <HabitStatsModal

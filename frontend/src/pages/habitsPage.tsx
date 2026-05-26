@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight, Check } from "lucide-react";
 import Navbar from "../components/Navbar";
-import HabitTracker from "../components/HabitTracker";
+import HabitTracker from "../components/habits/HabitTracker";
 import { getHabits, getHabitStats, logHabit, undoHabit } from "../apis/habits";
 import type { Habit } from "../types/habit";
 
@@ -189,16 +189,14 @@ const HabitsPage = () => {
           </div>
           
           <div className="flex items-center gap-2 bg-white p-1 rounded-xl shadow-sm border border-gray-100">
-            <button
-              onClick={() => setView("weekly")}
+            <button onClick={() => setView("weekly")}
               className={`px-4 py-2 text-sm font-semibold rounded-lg transition ${
                 view === "weekly" ? "bg-indigo-50 text-indigo-700" : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
               Weekly
             </button>
-            <button
-              onClick={() => setView("monthly")}
+            <button onClick={() => setView("monthly")}
               className={`px-4 py-2 text-sm font-semibold rounded-lg transition ${
                 view === "monthly" ? "bg-indigo-50 text-indigo-700" : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
               }`}
@@ -210,7 +208,7 @@ const HabitsPage = () => {
 
         {/* HabitTracker List View */}
         <div className="mb-10">
-          <HabitTracker />
+          <HabitTracker onHabitAdded={fetchData} />
         </div>
 
         {/* Calendar Grid View */}

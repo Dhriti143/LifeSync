@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { X, Flame, Trophy, CalendarDays } from "lucide-react";
-import { getHabitStats } from "../apis/habits";
-import type { HabitStats } from "../types/habit";
+import { X } from "lucide-react";
+import { getHabitStats } from "../../apis/habits";
+import type { HabitStats } from "../../types/habit";
 
 interface Props {
   isOpen: boolean;
