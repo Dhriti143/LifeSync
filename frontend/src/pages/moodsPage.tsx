@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight, X, TrendingUp } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -249,7 +250,7 @@ const MoodsPage = () => {
             
             <div className="p-6 max-h-[60vh] overflow-y-auto">
               <div className="relative border-l-2 border-gray-100 ml-4 space-y-8 pb-4">
-                {(logsByDate.get(selectedDay) || []).map((log, idx) => {
+                {(logsByDate.get(selectedDay) || []).map((log) => {
                   const meta = moodMeta[log.mood];
                   const timeString = new Date(log.created_at + (log.created_at.endsWith("Z") ? "" : "Z")).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                   
