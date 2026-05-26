@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from "react";
 import { Trash2, StickyNote } from "lucide-react";
@@ -17,7 +18,7 @@ export const moodMeta = Object.fromEntries(MOODS.map((m) => [m.label, m]));
 
 const DashboardMoodTracker = () => {
   const [logs, setLogs]         = useState<MoodLog[]>([]);
-  const [loading, setLoading]   = useState(true);
+  const [, setLoading]   = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
