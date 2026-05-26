@@ -37,7 +37,7 @@ const MoodTracker = () => {
     }
   }, []);
 
-  useEffect(() => { fetc hAll(); }, [fetchAll]);
+  useEffect(() => { fetchAll(); }, [fetchAll]);
 
   const handleLog = async () => {
     if (!selectedMood || submitting) return;
