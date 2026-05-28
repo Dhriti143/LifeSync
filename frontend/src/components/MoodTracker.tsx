@@ -62,7 +62,8 @@ const MoodTracker = () => {
     } catch (e) { console.error(e); }
   };
 
-  const todayKey = new Date().toISOString().slice(0, 10);
+  const d = new Date();
+  const todayKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const todayLogs = logs.filter((l) => l.logged_date === todayKey);
   const totalLogged = Object.values(stats).reduce((a, b) => a + b, 0);
 

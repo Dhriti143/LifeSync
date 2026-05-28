@@ -55,12 +55,12 @@ export function calculateStreaksFromDates(dateStrings: string[], totalDaysRefere
 
   let current = 0;
   if (hasToday || hasYesterday) {
-    let checkDate = hasToday ? today.getTime() : yesterday.getTime();
+    let currDate = new Date(hasToday ? today : yesterday);
     current = 1;
-    checkDate -= (24 * 60 * 60 * 1000); // minus 1 day
-    while (dateSet.has(checkDate)) {
+    currDate.setDate(currDate.getDate() - 1);
+    while (dateSet.has(currDate.getTime())) {
       current++;
-      checkDate -= (24 * 60 * 60 * 1000);
+      currDate.setDate(currDate.getDate() - 1);
     }
   }
 

@@ -27,7 +27,8 @@ const DashboardMoodTracker = () => {
 
   const fetchTodayLogs = useCallback(async () => {
     try {
-      const todayKey = new Date().toISOString().slice(0, 10);
+      const d = new Date();
+      const todayKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
       const res = await getMoodLogs(todayKey, todayKey);
       if (res.success) {
         // Sort chronologically (oldest to newest) for timeline, 

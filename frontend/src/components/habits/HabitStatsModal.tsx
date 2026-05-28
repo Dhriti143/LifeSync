@@ -37,7 +37,7 @@ const HabitStatsModal = ({ isOpen, onClose, habitId, habitName }: Props) => {
     days.push(d);
   }
 
-  const toKey = (d: Date) => d.toISOString().slice(0, 10);
+  const toKey = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
