@@ -1,4 +1,4 @@
-# LifeSync
+# LifePulse
 
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Backend](https://img.shields.io/badge/backend-FastAPI-009688)
@@ -11,7 +11,7 @@
 
 ## 🧠 Overview
 
-LifeSync is a full-stack personal productivity and mental wellness system designed to help users track habits, mood patterns, journaling insights, and long-term goals.
+LifePulse is a full-stack personal productivity and mental wellness system designed to help users track habits, mood patterns, journaling insights, and long-term goals.
 
 It is built using a **fully containerized distributed architecture** consisting of:
 
@@ -174,7 +174,7 @@ The backend is NOT exposed directly to the internet.
 
 The GitHub repository name and Docker image names are intentionally different.
 
-* GitHub Repository: **LifeSync**
+* GitHub Repository: **LifePulse**
 * Docker Images:
 
   * `neonbluewhale/rumi-frontend`
@@ -204,7 +204,7 @@ Automated workflow:
 
 ## ☁️ Deployment to AWS EC2 (Production Setup)
 
-LifeSync is deployed on AWS EC2 using Docker and Nginx.
+LifePulse is deployed on AWS EC2 using Docker and Nginx.
 
 ### 🏗️ Production Architecture
 
@@ -240,7 +240,7 @@ cd project
 
 ```env id="env_final"
 SECRET_KEY=your_secret_key
-DATABASE_URL=postgresql://user:password@db:5432/lifesync
+DATABASE_URL=postgresql://user:password@db:5432/LifePulse
 ```
 
 #### 4. Start services
@@ -357,7 +357,7 @@ _Add screenshot here_
 *Add a short GIF showing full app flow*
 
 ```text
-![Demo GIF](assets/lifesync-demo.gif)
+![Demo GIF](assets/LifePulse-demo.gif)
 ```
 
 ---
@@ -381,7 +381,7 @@ assets/
  ├── journal.png
  ├── habits.png
  ├── mood.png
- └── lifesync-demo.gif
+ └── LifePulse-demo.gif
 
 
 -->
